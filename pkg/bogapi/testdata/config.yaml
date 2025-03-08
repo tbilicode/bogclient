@@ -1,0 +1,18 @@
+---
+auth_url: https://sandbox.bog.ge/auth/realms/bog/protocol/openid-connect/token
+api_host: https://sandbox.businessonline.ge
+client_id: 123456
+client_secret: abcdef
+accounts:
+  - id: GE12BG0000000106360001
+    name: Primary
+    currency:
+      - USD
+      - EUR
+      - GEL
+  - id: GE12BG0000000106360002
+    name: Card
+    currency:
+      - USD
+      - EUR
+      - GEL

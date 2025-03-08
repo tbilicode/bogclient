@@ -1,0 +1,38 @@
+{
+  "GlobalSummary": {
+    "AccountNumber": "sample string 1",
+    "Currency": "sample string 2",
+    "StartDate": "2021-06-21T10:43:17.358503+04:00",
+    "EndDate": "2021-06-21T10:43:17.358503+04:00",
+    "PeriodStartDate": "2021-06-21T10:43:17.358503+04:00",
+    "PeriodEndDate": "2021-06-21T10:43:17.358503+04:00",
+    "InAmount": 7.0,
+    "InAmountBase": 8.0,
+    "InRate": 9.0,
+    "OutAmount": 10.0,
+    "OutAmountBase": 11.0,
+    "OutRate": 12.0,
+    "CreditSum": 13.0,
+    "DebitSum": 14.0
+  },
+  "DailySummaries": [
+    {
+      "Balance": 1.0,
+      "BalanceBase": 2.0,
+      "CreditSum": 3.0,
+      "DebitSum": 4.0,
+      "Rate": 5.0,
+      "EntryCount": 6,
+      "Date": "2021-06-21T10:43:17.358503+04:00"
+    },
+    {
+      "Balance": 1.0,
+      "BalanceBase": 2.0,
+      "CreditSum": 3.0,
+      "DebitSum": 4.0,
+      "Rate": 5.0,
+      "EntryCount": 6,
+      "Date": "2021-06-21T10:43:17.358503+04:00"
+    }
+  ]
+}
