@@ -16,6 +16,7 @@ type Cmd struct {
 	Statement StatementCmd `cmd:"" help:"create statement"`
 	Balance   BalanceCmd   `cmd:"" help:"prints account balance"`
 	Translate TranslateCmd `cmd:"" help:"translate statement to English, requires GOOGLE API KEY"`
+	Convert   ConvertCmd   `cmd:"" help:"convert statement to CSV or Excel"`
 }
 
 // BalanceCmd prints account balance
@@ -138,4 +139,44 @@ func (cmd *TranslateCmd) Run(ctx *cli.Cli) error {
 		return err
 	}
 	return nil
+}
+
+type ConvertCmd struct {
+	In     string `kong:"arg" help:"input file" required:""`
+	Out    string `kong:"arg" help:"output file" required:""`
+	Format string `help:"output format" enum:"csv,excel" default:"csv"`
+	Dedup  bool   `help:"deduplicate transactions"`
+}
+
+func (cmd *ConvertCmd) Run(ctx *cli.Cli) error {
+	data, err := os.ReadFile(cmd.In)
+	if err != nil {
+		return err
+	}
+
+	doc := new(bogapi.AccountStatements)
+	err = json.Unmarshal(data, doc)
+	if err != nil {
+		return err
+	}
+
+	transactions := bogapi.Report(doc)
+	if cmd.Dedup {
+		transactions = transactions.Dedup()
+	}
+
+	f, err := os.Create(cmd.Out)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	switch cmd.Format {
+	case "csv":
+		return transactions.ToCSV(f)
+	case "excel", "xlsx":
+		return transactions.ToExcel(f)
+	default:
+		return errors.New("unsupported format")
+	}
 }

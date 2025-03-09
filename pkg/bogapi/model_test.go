@@ -1,6 +1,7 @@
 package bogapi_test
 
 import (
+	"bytes"
 	"encoding/json"
 	"os"
 	"testing"
@@ -60,4 +61,19 @@ func TestAccountStatements(t *testing.T) {
 	err = json.Unmarshal(data, &res)
 	require.NoError(t, err)
 	assert.Equal(t, 6, len(res.Combined))
+}
+
+func TestStatementResponse(t *testing.T) {
+	t.Parallel()
+
+	data, err := os.ReadFile("testdata/raw_statement.json")
+	require.NoError(t, err)
+
+	var res bogapi.StatementResponse
+
+	d := json.NewDecoder(bytes.NewReader(data))
+	d.UseNumber()
+
+	err = d.Decode(&res)
+	require.NoError(t, err)
 }
