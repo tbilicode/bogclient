@@ -20,6 +20,7 @@ Flags:
 Commands:
   account statement    create statement
   account balance      prints account balance
+  account translate    translate statement to English, requires GOOGLE API KEY
 
 Run "bog <command> --help" for more information on a command.
 ```

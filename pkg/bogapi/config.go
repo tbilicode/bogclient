@@ -27,5 +27,4 @@ func LoadConfig(file string) (*Config, error) {
 		return nil, err
 	}
 	return cfg, nil
-
 }

@@ -36,6 +36,11 @@ func (ct *Time) UnmarshalJSON(b []byte) error {
 	return errors.Errorf("unable to parse time: %s", str)
 }
 
+func (ct *Time) MarshalJSON() ([]byte, error) {
+	t := time.Time(*ct)
+	return t.MarshalJSON()
+}
+
 type GlobalSummary struct {
 	AccountNumber   string  `json:"AccountNumber"`
 	Currency        string  `json:"Currency"`

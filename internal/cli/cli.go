@@ -2,6 +2,7 @@ package cli
 
 import (
 	"context"
+	"encoding/json"
 	"io"
 	"os"
 	"path/filepath"
@@ -12,6 +13,7 @@ import (
 	"github.com/effective-security/x/values"
 	"github.com/effective-security/xlog"
 	"github.com/mitchellh/go-homedir"
+	"github.com/pkg/errors"
 	"github.com/tbilicode/bogclient/pkg/bogapi"
 	"github.com/tbilicode/bogclient/pkg/print"
 )
@@ -130,4 +132,16 @@ func (c *Cli) Client() (bogapi.Client, error) {
 // Print response to out
 func (c *Cli) Print(value any) error {
 	return print.Object(c.Writer(), c.O, value)
+}
+
+func (c *Cli) WriteFile(file string, value any) error {
+	data, err := json.MarshalIndent(value, "", "  ")
+	if err != nil {
+		return errors.WithMessage(err, "failed to marshal data")
+	}
+	err = os.WriteFile(file, data, 0644)
+	if err != nil {
+		return errors.WithMessage(err, "failed to write file")
+	}
+	return nil
 }
