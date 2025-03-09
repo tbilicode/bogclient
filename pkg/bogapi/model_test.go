@@ -49,3 +49,15 @@ func TestStatementSummary(t *testing.T) {
 	assert.Equal(t, "sample string 1", res.GlobalSummary.AccountNumber)
 	assert.Equal(t, 2, len(res.DailySummaries))
 }
+
+func TestAccountStatements(t *testing.T) {
+	t.Parallel()
+
+	data, err := os.ReadFile("testdata/statement_feb.json")
+	require.NoError(t, err)
+
+	var res bogapi.AccountStatements
+	err = json.Unmarshal(data, &res)
+	require.NoError(t, err)
+	assert.Equal(t, 6, len(res.Combined))
+}

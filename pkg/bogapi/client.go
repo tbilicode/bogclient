@@ -131,7 +131,7 @@ func (c *client) Authenticate(ctx context.Context) error {
 
 	c.httpClient.AddHeader(header.Authorization, authResp.TokenType+" "+authResp.AccessToken)
 	c.httpClient.AddHeader(header.ContentType, "application/json")
-
+	c.httpClient.AddHeader("Accept-Language", "en")
 	return nil
 }
 
