@@ -8,6 +8,10 @@ import (
 
 type Time time.Time
 
+func (ct Time) String() string {
+	return time.Time(ct).Format(time.RFC3339)
+}
+
 func (ct *Time) UnmarshalJSON(b []byte) error {
 	// Trim quotes from JSON string
 	str := string(b)
@@ -108,7 +112,7 @@ type Record struct {
 	EntryDepartment                    string             `json:"EntryDepartment"`
 	EntryAccountPoint                  string             `json:"EntryAccountPoint"`
 	DocumentProductGroup               string             `json:"DocumentProductGroup"`
-	DocumentValueDate                  Time               `json:"DocumentValueDate"`
+	DocumentValueDate                  *Time              `json:"DocumentValueDate"`
 	SenderDetails                      SenderDetails      `json:"SenderDetails"`
 	BeneficiaryDetails                 BeneficiaryDetails `json:"BeneficiaryDetails"`
 	DocumentTreasuryCode               string             `json:"DocumentTreasuryCode"`
@@ -118,11 +122,11 @@ type Record struct {
 	DocumentSourceCurrency             string             `json:"DocumentSourceCurrency"`
 	DocumentDestinationAmount          float64            `json:"DocumentDestinationAmount"`
 	DocumentDestinationCurrency        string             `json:"DocumentDestinationCurrency"`
-	DocumentReceiveDate                Time               `json:"DocumentReceiveDate"`
+	DocumentReceiveDate                *Time              `json:"DocumentReceiveDate"`
 	DocumentBranch                     string             `json:"DocumentBranch"`
 	DocumentDepartment                 string             `json:"DocumentDepartment"`
-	DocumentActualDate                 Time               `json:"DocumentActualDate"`
-	DocumentExpiryDate                 Time               `json:"DocumentExpiryDate"`
+	DocumentActualDate                 *Time              `json:"DocumentActualDate"`
+	DocumentExpiryDate                 *Time              `json:"DocumentExpiryDate"`
 	DocumentRateLimit                  float64            `json:"DocumentRateLimit"`
 	DocumentRate                       float64            `json:"DocumentRate"`
 	DocumentRegistrationRate           float64            `json:"DocumentRegistrationRate"`
@@ -157,6 +161,7 @@ type AccountStatement struct {
 	Summary     *StatementSummary `json:"Summary"`
 }
 
+// AccountStatements provides combined account statements for multiple accounts.
 type AccountStatements struct {
 	Combined []*AccountStatement `json:"Combined"`
 }
