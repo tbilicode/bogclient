@@ -10,15 +10,19 @@ import (
 
 	"cloud.google.com/go/translate"
 	"github.com/effective-security/x/fileutil"
+	"github.com/effective-security/x/values"
+	"github.com/effective-security/xlog"
 	"github.com/pkg/errors"
 	"golang.org/x/text/language"
 	"google.golang.org/api/option"
 )
 
+var logger = xlog.NewPackageLogger("github.com/tbilicode/bogclient/pkg", "translate")
+
 type Provider interface {
 	io.Closer
 	Extract(doc any) []string
-	Translate(ctx context.Context, texts []string) (map[string]string, error)
+	Translate(ctx context.Context, provider string, texts []string) (map[string]string, error)
 	// Update replaces Georgian text with translated text, and returns a map of replaced text
 	Update(ctx context.Context, doc any) (map[string]string, error)
 }
@@ -29,12 +33,18 @@ type Translator struct {
 	translated map[string]string
 	file       string
 	override   bool
+	apiKey     string
 }
 
 func NewTranslator() *Translator {
 	return &Translator{
 		translated: make(map[string]string),
 	}
+}
+
+func (t *Translator) WithAPIKey(apiKey string) *Translator {
+	t.apiKey = apiKey
+	return t
 }
 
 func (t *Translator) Close() error {
@@ -85,7 +95,7 @@ func (t *Translator) Extract(doc any) (map[string]string, error) {
 	return texts, nil
 }
 
-func (t *Translator) Translate(ctx context.Context, texts map[string]string) error {
+func (t *Translator) Translate(ctx context.Context, provider string, texts map[string]string) error {
 	if len(texts) == 0 {
 		return nil
 	}
@@ -95,10 +105,20 @@ func (t *Translator) Translate(ctx context.Context, texts map[string]string) err
 			toTranslate[k] = v
 		}
 	}
-	err := TranslateBulk(ctx, toTranslate)
-	if err != nil {
-		return errors.WithMessage(err, "failed to translate")
+
+	switch provider {
+	case "google":
+		err := t.GoogleTranslate(ctx, toTranslate)
+		if err != nil {
+			return errors.WithMessage(err, "failed to translate")
+		}
+	case "ai":
+		err := t.OpenAITranslateJSON(ctx, toTranslate)
+		if err != nil {
+			return errors.WithMessage(err, "failed to translate")
+		}
 	}
+
 	for k, v := range toTranslate {
 		t.translated[k] = v
 	}
@@ -189,10 +209,10 @@ func IsGeorgian(text string) bool {
 	return georgianRegex.MatchString(text)
 }
 
-func TranslateBulk(ctx context.Context, texts map[string]string) error {
-	apiKey := os.Getenv("BOG_GOOGLE_APIKEY") // Ensure this environment variable is set
+func (t *Translator) GoogleTranslate(ctx context.Context, texts map[string]string) error {
+	apiKey := values.Coalesce(t.apiKey, os.Getenv("BOG_GOOGLE_APIKEY"))
 	if apiKey == "" {
-		return errors.New("missing BOG_GOOGLE_APIKEY")
+		return errors.New("missing GOOGLE API KEY")
 	}
 
 	keys := make([]string, 0, len(texts))

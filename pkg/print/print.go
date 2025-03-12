@@ -68,7 +68,7 @@ func Map(w io.Writer, header []string, vals map[string]string) {
 	table.SetHeaderLine(true)
 
 	for _, k := range values.OrderedMapKeys(vals) {
-		table.Append([]string{k, slices.StringUpto(vals[k], 80)})
+		table.Append([]string{slices.StringUpto(k, 32), slices.StringUpto(vals[k], 64)})
 	}
 
 	table.Render()
