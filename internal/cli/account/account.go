@@ -3,6 +3,7 @@ package account
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -86,22 +87,24 @@ func (cmd *StatementCmd) Run(ctx *cli.Cli) error {
 }
 
 type TranslateCmd struct {
-	In  string `kong:"arg" help:"input file" required:""`
-	Out string `kong:"arg" help:"output file" required:""`
+	In       string `kong:"arg" help:"input file" required:""`
+	Out      string `kong:"arg" help:"output file" required:""`
+	APIKey   string `help:"API Key"`
+	Provider string `help:"translation provider" enum:"google,ai" default:"google"`
 }
 
 func (cmd *TranslateCmd) Run(ctx *cli.Cli) error {
-	tr := translate.NewTranslator()
-
-	dict := filepath.Join(ctx.Storage, "dict.json")
-	dict, _ = homedir.Expand(dict)
-
-	err := tr.LoadDictionary(dict, true)
+	data, err := os.ReadFile(cmd.In)
 	if err != nil {
 		return err
 	}
 
-	data, err := os.ReadFile(cmd.In)
+	tr := translate.NewTranslator().WithAPIKey(cmd.APIKey)
+
+	dict := filepath.Join(ctx.Storage, "dict.json")
+	dict, _ = homedir.Expand(dict)
+
+	err = tr.LoadDictionary(dict, true)
 	if err != nil {
 		return err
 	}
@@ -117,27 +120,34 @@ func (cmd *TranslateCmd) Run(ctx *cli.Cli) error {
 		return err
 	}
 
-	err = tr.Translate(ctx.Context(), texts)
-	if err != nil {
-		return err
-	}
+	if len(texts) > 0 {
+		err = tr.Translate(ctx.Context(), cmd.Provider, texts)
+		if err != nil {
+			return err
+		}
 
-	_ = tr.SaveDictionary(dict)
+		_ = tr.SaveDictionary(dict)
 
-	replaced, err := tr.Update(ctx.Context(), doc)
-	if err != nil {
-		return err
+		replaced, err := tr.Update(ctx.Context(), doc)
+		if err != nil {
+			return err
+		}
+		fmt.Printf("Replaced %d items:\n\n", len(replaced))
+		ctx.Print(replaced)
+	} else {
+		fmt.Fprintln(ctx.Writer(), "Nothing to translate")
 	}
-	ctx.Print(replaced)
 
 	data, err = json.MarshalIndent(doc, "", "  ")
 	if err != nil {
 		return err
 	}
-	err = os.WriteFile(cmd.Out, data, 0644)
+
+	err = os.WriteFile(cmd.Out, []byte(data), 0644)
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
 

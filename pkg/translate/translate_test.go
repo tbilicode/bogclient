@@ -105,7 +105,7 @@ func Test_TranslateBulk_Real(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, 6, len(texts))
 
-	err = tr.Translate(ctx, texts)
+	err = tr.Translate(ctx, "google", texts)
 	require.NoError(t, err)
 
 	assert.Equal(t, 6, len(tr.translated))

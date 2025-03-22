@@ -251,7 +251,7 @@ func Report(r *AccountStatements) TransactionSlice {
 func (t TransactionSlice) ToExcel(w io.Writer) error {
 	f := excelize.NewFile()
 	sheet := "Statement of Accounts"
-	f.SetSheetName(f.GetSheetName(0), sheet)
+	_ = f.SetSheetName(f.GetSheetName(0), sheet)
 
 	// Write Excel header
 	header := []string{
@@ -266,7 +266,7 @@ func (t TransactionSlice) ToExcel(w io.Writer) error {
 	}
 	for i, h := range header {
 		col, _ := excelize.ColumnNumberToName(i + 1)
-		f.SetCellValue(sheet, col+"1", h)
+		_ = f.SetCellValue(sheet, col+"1", h)
 	}
 
 	// Write Excel rows
@@ -311,7 +311,7 @@ func (t TransactionSlice) ToExcel(w io.Writer) error {
 		for j, value := range row {
 			col, _ := excelize.ColumnNumberToName(j + 1)
 			cell := fmt.Sprintf("%s%d", col, i+2)
-			f.SetCellValue(sheet, cell, value)
+			_ = f.SetCellValue(sheet, cell, value)
 		}
 	}
 
