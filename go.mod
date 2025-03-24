@@ -1,11 +1,10 @@
 module github.com/tbilicode/bogclient
 
 go 1.23.5
-
 require (
 	cloud.google.com/go/translate v1.12.4
 	github.com/alecthomas/kong v1.9.0
-	github.com/effective-security/porto v0.30.309
+	github.com/effective-security/porto v0.32.312
 	github.com/effective-security/x v0.9.49
 	github.com/effective-security/xlog v0.9.41
 	github.com/mitchellh/go-homedir v1.1.0
@@ -26,7 +25,7 @@ require (
 	cloud.google.com/go/auth/oauth2adapt v0.2.7 // indirect
 	cloud.google.com/go/compute/metadata v0.6.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/effective-security/xpki v0.23.212 // indirect
+	github.com/effective-security/xpki v0.24.215 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-jose/go-jose/v3 v3.0.4 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
