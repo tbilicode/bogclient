@@ -6,7 +6,7 @@ require (
 	cloud.google.com/go/translate v1.12.4
 	github.com/alecthomas/kong v1.10.0
 	github.com/effective-security/porto v0.32.312
-	github.com/effective-security/x v0.11.52
+	github.com/effective-security/x v0.12.53
 	github.com/effective-security/xlog v0.9.41
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/olekukonko/tablewriter v0.0.5
@@ -60,6 +60,6 @@ require (
 	golang.org/x/tools v0.21.1-0.20240508182429-e35e4ccd0d2d // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250313205543-e70fdf4c4cb4 // indirect
 	google.golang.org/grpc v1.71.0 // indirect
-	google.golang.org/protobuf v1.36.5 // indirect
+	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
