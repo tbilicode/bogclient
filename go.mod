@@ -16,14 +16,14 @@ require (
 	github.com/xuri/excelize/v2 v2.9.0
 	golang.org/x/net v0.38.0
 	golang.org/x/text v0.24.0
-	google.golang.org/api v0.227.0
+	google.golang.org/api v0.228.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
 	cloud.google.com/go v0.118.3 // indirect
 	cloud.google.com/go/auth v0.15.0 // indirect
-	cloud.google.com/go/auth/oauth2adapt v0.2.7 // indirect
+	cloud.google.com/go/auth/oauth2adapt v0.2.8 // indirect
 	cloud.google.com/go/compute/metadata v0.6.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/effective-security/xpki v0.24.215 // indirect
