@@ -21,6 +21,7 @@ Commands:
   account statement    create statement
   account balance      prints account balance
   account translate    translate statement to English, requires GOOGLE API KEY
+  account convert      convert statement to CSV or Excel
 
 Run "bog <command> --help" for more information on a command.
 ```
