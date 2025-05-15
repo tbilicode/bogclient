@@ -60,18 +60,14 @@ func Print(w io.Writer, value any) {
 
 // Map prints map
 func Map(w io.Writer, header []string, vals map[string]string) {
-	table := tablewriter.NewWriter(w)
-	table.SetBorder(false)
-	table.SetAlignment(tablewriter.ALIGN_LEFT)
-	table.SetAutoWrapText(false)
-	table.SetHeader(header)
-	table.SetHeaderLine(true)
+	table := tablewriter.NewTable(w)
+	table.Header(header)
 
 	for _, k := range values.OrderedMapKeys(vals) {
-		table.Append([]string{slices.StringUpto(k, 32), slices.StringUpto(vals[k], 64)})
+		_ = table.Append([]string{slices.StringUpto(k, 32), slices.StringUpto(vals[k], 64)})
 	}
 
-	table.Render()
+	_ = table.Render()
 	fmt.Fprintln(w)
 }
 
