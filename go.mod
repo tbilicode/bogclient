@@ -5,7 +5,7 @@ go 1.24.4
 require (
 	cloud.google.com/go/translate v1.12.6
 	github.com/alecthomas/kong v1.12.0
-	github.com/effective-security/porto v0.33.333
+	github.com/effective-security/porto v0.33.335
 	github.com/effective-security/x v0.14.64
 	github.com/effective-security/xlog v0.9.41
 	github.com/mitchellh/go-homedir v1.1.0
