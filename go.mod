@@ -6,7 +6,7 @@ require (
 	cloud.google.com/go/translate v1.12.6
 	github.com/alecthomas/kong v1.12.1
 	github.com/effective-security/porto v0.33.342
-	github.com/effective-security/x v0.14.68
+	github.com/effective-security/x v0.15.69
 	github.com/effective-security/xlog v0.10.44
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/olekukonko/tablewriter v1.0.9
