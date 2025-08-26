@@ -12,7 +12,7 @@ require (
 	github.com/olekukonko/tablewriter v1.0.9
 	github.com/pkg/errors v0.9.1
 	github.com/spaolacci/murmur3 v1.1.0
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.0
 	github.com/xuri/excelize/v2 v2.9.1
 	golang.org/x/net v0.42.0
 	golang.org/x/text v0.27.0
