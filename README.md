@@ -25,3 +25,11 @@ Commands:
 
 Run "bog <command> --help" for more information on a command.
 ```
+
+Example:
+
+```sh
+bin/bog account statement --from 2025-09-01 --to 2025-09-30 --summary --out /tmp/bog09.json
+bin/bog account translate /tmp/bog09.json /tmp/tbilicode_sep-ai.eng.json --provider ai
+bin/bog account convert /tmp/tbilicode_sep-ai.eng.json /tmp/tbilicode_sep-ai.eng.json.xlsx --format excel
+```
