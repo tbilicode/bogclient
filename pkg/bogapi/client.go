@@ -46,7 +46,7 @@ func CreateClient(file string, timeoutSec int) (Client, error) {
 		return nil, errors.WithMessage(err, "failed to load config")
 	}
 
-	server := values.StringsCoalesce(cfg.ApiHost, os.Getenv("BOG_SERVER"))
+	server := values.StringsCoalesce(cfg.APIHost, os.Getenv("BOG_SERVER"))
 	client, err := retriable.Default(server)
 	if err != nil {
 		return nil, err

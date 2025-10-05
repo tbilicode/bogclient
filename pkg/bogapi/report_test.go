@@ -17,7 +17,7 @@ func TestReport(t *testing.T) {
 	err = json.Unmarshal(data, &res)
 	require.NoError(t, err)
 
-	transactions := bogapi.Report(&res)
+	transactions := res.TransactionsReport()
 
 	// Create a new CSV file
 	file, err := os.Create("testdata/statement_feb.csv")

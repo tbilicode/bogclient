@@ -16,7 +16,7 @@ func Test_LoadConfig(t *testing.T) {
 	require.NoError(t, err)
 	require.Len(t, cfg.Accounts, 2)
 
-	assert.Equal(t, "https://sandbox.businessonline.ge", cfg.ApiHost)
+	assert.Equal(t, "https://sandbox.businessonline.ge", cfg.APIHost)
 	assert.Equal(t, "https://sandbox.bog.ge/auth/realms/bog/protocol/openid-connect/token", cfg.AuthURL)
 	assert.Equal(t, "123456", cfg.ClientID)
 	assert.Equal(t, "abcdef", cfg.ClientSecret)

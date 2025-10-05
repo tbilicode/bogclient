@@ -7,7 +7,7 @@ type Config struct {
 	ClientID     string    `json:"client_id" yaml:"client_id"`
 	ClientSecret string    `json:"client_secret" yaml:"client_secret"`
 	AuthURL      string    `json:"auth_url" yaml:"auth_url"`
-	ApiHost      string    `json:"api_host" yaml:"api_host"`
+	APIHost      string    `json:"api_host" yaml:"api_host"`
 }
 
 type Account struct {

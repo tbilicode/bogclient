@@ -9,7 +9,11 @@ import (
 type Time time.Time
 
 func (ct Time) String() string {
-	return time.Time(ct).Format(time.RFC3339)
+	t := time.Time(ct)
+	if t.IsZero() {
+		return ""
+	}
+	return t.Format(time.RFC3339)
 }
 
 func (ct *Time) UnmarshalJSON(b []byte) error {
@@ -60,7 +64,10 @@ type GlobalSummary struct {
 	OutRate         float64 `json:"OutRate"`
 	CreditSum       float64 `json:"CreditSum"`
 	DebitSum        float64 `json:"DebitSum"`
+	Balance         float64 `json:"Balance"`
 }
+
+type GlobalSummarySlice []GlobalSummary
 
 type DailySummary struct {
 	Balance     float64 `json:"Balance"`
@@ -71,6 +78,14 @@ type DailySummary struct {
 	EntryCount  int     `json:"EntryCount"`
 	Date        Time    `json:"Date"`
 }
+
+type AccountDailySummary struct {
+	AccountNumber string `json:"AccountNumber"`
+	Currency      string `json:"Currency"`
+	DailySummary
+}
+
+type AccountDailySummarySlice []AccountDailySummary
 
 type StatementSummary struct {
 	GlobalSummary  GlobalSummary  `json:"GlobalSummary"`
@@ -138,7 +153,7 @@ type Record struct {
 	DocumentCorrespondentBankCode      string             `json:"DocumentCorrespondentBankCode"`
 	DocumentCorrespondentBankName      string             `json:"DocumentCorrespondentBankName"`
 	DocumentKey                        float64            `json:"DocumentKey"`
-	EntryId                            float64            `json:"EntryId"`
+	EntryID                            float64            `json:"EntryId"`
 	DocumentPayerName                  string             `json:"DocumentPayerName"`
 	DocumentPayerInn                   string             `json:"DocumentPayerInn"`
 	DocComment                         string             `json:"DocComment"`

@@ -152,13 +152,18 @@ func (cmd *TranslateCmd) Run(ctx *cli.Cli) error {
 }
 
 type ConvertCmd struct {
+	Transactions ConvertTransactionsCmd `cmd:"" help:"convert transactions to CSV or Excel"`
+	Daily        ConvertDailyCmd        `cmd:"" help:"convert daily summaries to CSV or Excel"`
+	Global       ConvertGlobalCmd       `cmd:"" help:"convert global summaries to CSV or Excel"`
+}
+
+type ConvertGlobalCmd struct {
 	In     string `kong:"arg" help:"input file" required:""`
 	Out    string `kong:"arg" help:"output file" required:""`
 	Format string `help:"output format" enum:"csv,excel" default:"csv"`
-	Dedup  bool   `help:"deduplicate transactions"`
 }
 
-func (cmd *ConvertCmd) Run(ctx *cli.Cli) error {
+func (cmd *ConvertGlobalCmd) Run(ctx *cli.Cli) error {
 	data, err := os.ReadFile(cmd.In)
 	if err != nil {
 		return err
@@ -170,9 +175,80 @@ func (cmd *ConvertCmd) Run(ctx *cli.Cli) error {
 		return err
 	}
 
-	transactions := bogapi.Report(doc)
+	report := doc.GlobalSummaries()
+	f, err := os.Create(cmd.Out)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	switch cmd.Format {
+	case "csv":
+		return report.ToCSV(f)
+	case "excel", "xlsx":
+		return report.ToExcel(f)
+	default:
+		return errors.New("unsupported format")
+	}
+}
+
+type ConvertDailyCmd struct {
+	In     string `kong:"arg" help:"input file" required:""`
+	Out    string `kong:"arg" help:"output file" required:""`
+	Format string `help:"output format" enum:"csv,excel" default:"csv"`
+}
+
+func (cmd *ConvertDailyCmd) Run(ctx *cli.Cli) error {
+	data, err := os.ReadFile(cmd.In)
+	if err != nil {
+		return err
+	}
+
+	doc := new(bogapi.AccountStatements)
+	err = json.Unmarshal(data, doc)
+	if err != nil {
+		return err
+	}
+
+	report := doc.Daily()
+	f, err := os.Create(cmd.Out)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	switch cmd.Format {
+	case "csv":
+		return report.ToCSV(f)
+	case "excel", "xlsx":
+		return report.ToExcel(f)
+	default:
+		return errors.New("unsupported format")
+	}
+}
+
+type ConvertTransactionsCmd struct {
+	In     string `kong:"arg" help:"input file" required:""`
+	Out    string `kong:"arg" help:"output file" required:""`
+	Format string `help:"output format" enum:"csv,excel" default:"csv"`
+	Dedup  bool   `help:"deduplicate transactions"`
+}
+
+func (cmd *ConvertTransactionsCmd) Run(ctx *cli.Cli) error {
+	data, err := os.ReadFile(cmd.In)
+	if err != nil {
+		return err
+	}
+
+	doc := new(bogapi.AccountStatements)
+	err = json.Unmarshal(data, doc)
+	if err != nil {
+		return err
+	}
+
+	report := doc.TransactionsReport()
 	if cmd.Dedup {
-		transactions = transactions.Dedup()
+		report = report.Dedup()
 	}
 
 	f, err := os.Create(cmd.Out)
@@ -183,9 +259,9 @@ func (cmd *ConvertCmd) Run(ctx *cli.Cli) error {
 
 	switch cmd.Format {
 	case "csv":
-		return transactions.ToCSV(f)
+		return report.ToCSV(f)
 	case "excel", "xlsx":
-		return transactions.ToExcel(f)
+		return report.ToExcel(f)
 	default:
 		return errors.New("unsupported format")
 	}

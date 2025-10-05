@@ -18,10 +18,12 @@ Flags:
       --timeout=6                                Connection timeout
 
 Commands:
-  account statement    create statement
-  account balance      prints account balance
-  account translate    translate statement to English, requires GOOGLE API KEY
-  account convert      convert statement to CSV or Excel
+  account statement               create statement
+  account balance                 prints account balance
+  account translate               translate statement to English, requires GOOGLE API KEY
+  account convert transactions    convert transactions to CSV or Excel
+  account convert daily           convert daily summaries to CSV or Excel
+  account convert global          convert global summaries to CSV or Excel
 
 Run "bog <command> --help" for more information on a command.
 ```
@@ -30,6 +32,8 @@ Example:
 
 ```sh
 bin/bog account statement --from 2025-09-01 --to 2025-09-30 --summary --out /tmp/bog09.json
-bin/bog account translate /tmp/bog09.json /tmp/tbilicode_sep-ai.eng.json --provider ai
-bin/bog account convert /tmp/tbilicode_sep-ai.eng.json /tmp/tbilicode_sep-ai.eng.json.xlsx --format excel
+bin/bog account translate /tmp/bog09.json /tmp/bog09-ai.eng.json --provider ai
+bin/bog account convert transactions /tmp/bog09-ai.eng.json /tmp/bog09-ai.eng.xlsx --format excel
+bin/bog account convert daily /tmp/bog09.json /tmp/bog09-daily.xlsx --format excel
+bin/bog account convert global /tmp/bog09.json /tmp/bog09-global.xlsx --format excel
 ```

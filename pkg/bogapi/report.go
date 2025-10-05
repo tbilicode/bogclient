@@ -176,6 +176,10 @@ func formatUInt(i uint64) string {
 	return strconv.FormatUint(i, 10)
 }
 
+func formatInt(i int) string {
+	return strconv.FormatInt(int64(i), 10)
+}
+
 func (t TransactionSlice) Dedup() TransactionSlice {
 	transactionMap := make(map[string]Transaction)
 	var transactions TransactionSlice
@@ -191,7 +195,7 @@ func (t TransactionSlice) Dedup() TransactionSlice {
 	return transactions
 }
 
-func Report(r *AccountStatements) TransactionSlice {
+func (r *AccountStatements) TransactionsReport() TransactionSlice {
 	var transactions TransactionSlice
 
 	for _, accountStatement := range r.Combined {
@@ -209,7 +213,7 @@ func Report(r *AccountStatements) TransactionSlice {
 				CreditAmountInGel:       record.EntryAmountCreditBase,
 				EntryComment:            record.EntryComment,
 				OperationType:           record.DocumentProductGroup,
-				OperationID:             uint64(record.EntryId),
+				OperationID:             uint64(record.EntryID),
 				Ref:                     record.EntryDocumentNumber,
 				SenderName:              record.SenderDetails.Name,
 				SenderNumberTaxpayer:    record.SenderDetails.Inn,
@@ -246,6 +250,182 @@ func Report(r *AccountStatements) TransactionSlice {
 	})
 
 	return transactions
+}
+
+func (r *AccountStatements) GlobalSummaries() GlobalSummarySlice {
+	var summaries GlobalSummarySlice
+	for _, accountStatement := range r.Combined {
+		gs := accountStatement.Summary.GlobalSummary
+		if count := len(accountStatement.Summary.DailySummaries); count > 0 {
+			gs.Balance = accountStatement.Summary.DailySummaries[count-1].Balance
+		}
+		summaries = append(summaries, gs)
+	}
+	return summaries
+}
+
+func (r *AccountStatements) Daily() AccountDailySummarySlice {
+	var summaries AccountDailySummarySlice
+	for _, accountStatement := range r.Combined {
+		for _, dailySummary := range accountStatement.Summary.DailySummaries {
+			summaries = append(summaries, AccountDailySummary{
+				AccountNumber: accountStatement.Account,
+				Currency:      accountStatement.Currency,
+				DailySummary:  dailySummary,
+			})
+		}
+	}
+	return summaries
+}
+
+func (t AccountDailySummarySlice) ToCSV(w io.Writer) error {
+	writer := csv.NewWriter(w)
+	defer writer.Flush()
+
+	header := []string{
+		"Account", "Currency", "Date", "Balance", "Balance Base", "Credit Sum", "Debit Sum", "Rate", "Entry Count",
+	}
+	if err := writer.Write(header); err != nil {
+		return err
+	}
+
+	for _, summary := range t {
+		err := writer.Write([]string{
+			summary.AccountNumber,
+			summary.Currency,
+			summary.Date.String(),
+			formatFloat(summary.Balance),
+			formatFloat(summary.BalanceBase),
+			formatFloat(summary.CreditSum),
+			formatFloat(summary.DebitSum),
+			formatFloat(summary.Rate),
+			formatInt(summary.EntryCount),
+		})
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (t AccountDailySummarySlice) ToExcel(w io.Writer) error {
+	f := excelize.NewFile()
+	sheet := "Daily Summaries"
+	_ = f.SetSheetName(f.GetSheetName(0), sheet)
+
+	// Write Excel header
+	header := []string{
+		"Account", "Currency", "Date", "Balance", "Balance Base", "Credit Sum", "Debit Sum", "Rate", "Entry Count",
+	}
+	for i, h := range header {
+		col, _ := excelize.ColumnNumberToName(i + 1)
+		_ = f.SetCellValue(sheet, col+"1", h)
+	}
+
+	// Write Excel rows
+	for i, summary := range t {
+		row := []any{
+			summary.AccountNumber,
+			summary.Currency,
+			summary.Date,
+			summary.Balance,
+			summary.BalanceBase,
+			summary.CreditSum,
+			summary.DebitSum,
+			summary.Rate,
+			summary.EntryCount,
+		}
+		for j, value := range row {
+			col, _ := excelize.ColumnNumberToName(j + 1)
+			cell := fmt.Sprintf("%s%d", col, i+2)
+			_ = f.SetCellValue(sheet, cell, value)
+		}
+	}
+	if err := f.Write(w); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (t GlobalSummarySlice) ToCSV(w io.Writer) error {
+	writer := csv.NewWriter(w)
+	defer writer.Flush()
+
+	header := []string{
+		"Account", "Currency", "Start Date", "End Date", "Period Start", "Period End", "Balance", "In Amount", "In Amount Base", "In Rate", "Out Amount", "Out Amount Base", "Out Rate", "Credit Sum", "Debit Sum",
+	}
+	if err := writer.Write(header); err != nil {
+		return err
+	}
+
+	for _, summary := range t {
+		err := writer.Write([]string{
+			summary.AccountNumber,
+			summary.Currency,
+			summary.StartDate.String(),
+			summary.EndDate.String(),
+			summary.PeriodStartDate.String(),
+			summary.PeriodEndDate.String(),
+			formatFloat(summary.Balance),
+			formatFloat(summary.InAmount),
+			formatFloat(summary.InAmountBase),
+			formatFloat(summary.InRate),
+			formatFloat(summary.OutAmount),
+			formatFloat(summary.OutAmountBase),
+			formatFloat(summary.OutRate),
+			formatFloat(summary.CreditSum),
+			formatFloat(summary.DebitSum),
+		})
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (t GlobalSummarySlice) ToExcel(w io.Writer) error {
+	f := excelize.NewFile()
+	sheet := "Global Summaries"
+	_ = f.SetSheetName(f.GetSheetName(0), sheet)
+
+	// Write Excel header
+	header := []string{
+		"Account", "Currency", "Start Date", "End Date", "Period Start", "Period End", "Balance", "In Amount", "In Amount Base", "In Rate", "Out Amount", "Out Amount Base", "Out Rate", "Credit Sum", "Debit Sum",
+	}
+	for i, h := range header {
+		col, _ := excelize.ColumnNumberToName(i + 1)
+		_ = f.SetCellValue(sheet, col+"1", h)
+	}
+
+	// Write Excel rows
+	for i, summary := range t {
+		row := []any{
+			summary.AccountNumber,
+			summary.Currency,
+			summary.StartDate,
+			summary.EndDate,
+			summary.PeriodStartDate,
+			summary.PeriodEndDate,
+			summary.Balance,
+			summary.InAmount,
+			summary.InAmountBase,
+			summary.InRate,
+			summary.OutAmount,
+			summary.OutAmountBase,
+			summary.OutRate,
+			summary.CreditSum,
+			summary.DebitSum,
+		}
+		for j, value := range row {
+			col, _ := excelize.ColumnNumberToName(j + 1)
+			cell := fmt.Sprintf("%s%d", col, i+2)
+			_ = f.SetCellValue(sheet, cell, value)
+		}
+	}
+	if err := f.Write(w); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (t TransactionSlice) ToExcel(w io.Writer) error {
