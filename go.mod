@@ -3,7 +3,7 @@ module github.com/tbilicode/bogclient
 go 1.24.4
 
 require (
-	cloud.google.com/go/translate v1.12.6
+	cloud.google.com/go/translate v1.12.7
 	github.com/alecthomas/kong v1.12.1
 	github.com/effective-security/porto v0.35.356
 	github.com/effective-security/x v0.15.72
@@ -21,7 +21,7 @@ require (
 )
 
 require (
-	cloud.google.com/go v0.121.2 // indirect
+	cloud.google.com/go v0.121.6 // indirect
 	cloud.google.com/go/auth v0.16.5 // indirect
 	cloud.google.com/go/auth/oauth2adapt v0.2.8 // indirect
 	cloud.google.com/go/compute/metadata v0.9.0 // indirect
