@@ -7,7 +7,7 @@ require (
 	github.com/alecthomas/kong v1.12.1
 	github.com/effective-security/porto v0.35.356
 	github.com/effective-security/x v0.15.72
-	github.com/effective-security/xlog v0.10.46
+	github.com/effective-security/xlog v0.10.47
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/olekukonko/tablewriter v1.1.0
 	github.com/pkg/errors v0.9.1
