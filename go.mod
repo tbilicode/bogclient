@@ -14,8 +14,8 @@ require (
 	github.com/spaolacci/murmur3 v1.1.0
 	github.com/stretchr/testify v1.11.1
 	github.com/xuri/excelize/v2 v2.9.1
-	golang.org/x/net v0.44.0
-	golang.org/x/text v0.29.0
+	golang.org/x/net v0.46.0
+	golang.org/x/text v0.30.0
 	google.golang.org/api v0.251.0
 	gopkg.in/yaml.v3 v3.0.1
 )
@@ -81,12 +81,12 @@ require (
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/config v1.4.0 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
-	golang.org/x/crypto v0.42.0 // indirect
+	golang.org/x/crypto v0.43.0 // indirect
 	golang.org/x/exp v0.0.0-20240416160154-fe59bbe5cc7f // indirect
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
 	golang.org/x/oauth2 v0.31.0 // indirect
-	golang.org/x/sys v0.36.0 // indirect
-	golang.org/x/tools v0.36.0 // indirect
+	golang.org/x/sys v0.37.0 // indirect
+	golang.org/x/tools v0.37.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250929231259-57b25ae835d4 // indirect
 	google.golang.org/grpc v1.75.1 // indirect
 	google.golang.org/protobuf v1.36.9 // indirect
