@@ -1,12 +1,12 @@
 module github.com/tbilicode/bogclient
 
-go 1.24.4
+go 1.25.3
 
 require (
 	cloud.google.com/go/translate v1.12.7
 	github.com/alecthomas/kong v1.12.1
 	github.com/effective-security/porto v0.35.359
-	github.com/effective-security/x v0.15.73
+	github.com/effective-security/x v0.15.75
 	github.com/effective-security/xlog v0.10.47
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/olekukonko/tablewriter v1.1.0

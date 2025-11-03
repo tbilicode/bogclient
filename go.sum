@@ -116,8 +116,8 @@ github.com/effective-security/metrics v0.8.108 h1:ocGbmSbed6oVWiO9yeK67TPOGfkiMo
 github.com/effective-security/metrics v0.8.108/go.mod h1:7wZXT19dk9/nZdif2Do4ur88kOw/QFuTruMDUf4NRlM=
 github.com/effective-security/porto v0.35.359 h1:mp3SoogHCEN0/r06/cMKXO4qv0t6YpU+oX1WoGNv++E=
 github.com/effective-security/porto v0.35.359/go.mod h1:luh0JlA6ZD+2P5Z+NHAd0MzFmIsy59fdXAMhgDbuZyY=
-github.com/effective-security/x v0.15.73 h1:TG/hM0+P2XZAr3YELFnQkXRETTpCPNxzT0bj1pXq5rc=
-github.com/effective-security/x v0.15.73/go.mod h1:KLqQQuetkAIiorxAcNRF8CpAbQVNT99bsj365Ws5iBA=
+github.com/effective-security/x v0.15.75 h1:OUnoElUbb/UmvAw+/OsyN87tTB3wodWSP+s1MdQWLAk=
+github.com/effective-security/x v0.15.75/go.mod h1:N4nIhMd/38CAZZ28VICzav9+9yHbkQVw5dBqHs4uSHw=
 github.com/effective-security/xdb v0.24.120 h1:ygkAWpdEyrlvl58PdNaCnDppZzrhdaxgXr5E6XDcits=
 github.com/effective-security/xdb v0.24.120/go.mod h1:5KuRVMeLyYR3q+XmuaPJ98BZbPi7uFeXshB9yKxm6uU=
 github.com/effective-security/xlog v0.10.47 h1:a/zKY0aiiO7DNbspYlxbeCYaVavX9r8NMzyqiL9HSsU=
