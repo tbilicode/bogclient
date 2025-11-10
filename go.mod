@@ -1,13 +1,13 @@
 module github.com/tbilicode/bogclient
 
-go 1.24.4
+go 1.25.3
 
 require (
 	cloud.google.com/go/translate v1.12.7
 	github.com/alecthomas/kong v1.12.1
-	github.com/effective-security/porto v0.35.359
-	github.com/effective-security/x v0.15.73
-	github.com/effective-security/xlog v0.10.47
+	github.com/effective-security/porto v0.35.364
+	github.com/effective-security/x v0.15.75
+	github.com/effective-security/xlog v0.10.48
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/olekukonko/tablewriter v1.1.0
 	github.com/pkg/errors v0.9.1
@@ -37,8 +37,8 @@ require (
 	github.com/cockroachdb/logtags v0.0.0-20241215232642-bb51bb14a506 // indirect
 	github.com/cockroachdb/redact v1.1.6 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/effective-security/xdb v0.24.120 // indirect
-	github.com/effective-security/xpki v0.26.244 // indirect
+	github.com/effective-security/xdb v0.24.126 // indirect
+	github.com/effective-security/xpki v0.26.247 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/getsentry/sentry-go v0.36.2 // indirect
