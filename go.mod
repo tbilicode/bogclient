@@ -1,13 +1,13 @@
 module github.com/tbilicode/bogclient
 
-go 1.24.4
+go 1.25.3
 
 require (
 	cloud.google.com/go/translate v1.12.7
 	github.com/alecthomas/kong v1.12.1
-	github.com/effective-security/porto v0.35.359
-	github.com/effective-security/x v0.15.73
-	github.com/effective-security/xlog v0.10.47
+	github.com/effective-security/porto v0.35.366
+	github.com/effective-security/x v0.15.75
+	github.com/effective-security/xlog v0.10.48
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/olekukonko/tablewriter v1.1.0
 	github.com/pkg/errors v0.9.1
@@ -37,8 +37,8 @@ require (
 	github.com/cockroachdb/logtags v0.0.0-20241215232642-bb51bb14a506 // indirect
 	github.com/cockroachdb/redact v1.1.6 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/effective-security/xdb v0.24.120 // indirect
-	github.com/effective-security/xpki v0.26.244 // indirect
+	github.com/effective-security/xdb v0.24.126 // indirect
+	github.com/effective-security/xpki v0.26.247 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/getsentry/sentry-go v0.36.2 // indirect
@@ -87,9 +87,9 @@ require (
 	golang.org/x/exp v0.0.0-20251023183803-a4bb9ffd2546 // indirect
 	golang.org/x/lint v0.0.0-20241112194109-818c5a804067 // indirect
 	golang.org/x/oauth2 v0.32.0 // indirect
-	golang.org/x/sys v0.37.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
 	golang.org/x/tools v0.38.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20251029180050-ab9386a59fda // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20251110190251-83f479183930 // indirect
 	google.golang.org/grpc v1.76.0 // indirect
 	google.golang.org/protobuf v1.36.10 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
