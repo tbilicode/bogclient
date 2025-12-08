@@ -16,7 +16,7 @@ require (
 	github.com/xuri/excelize/v2 v2.10.0
 	golang.org/x/net v0.47.0
 	golang.org/x/text v0.31.0
-	google.golang.org/api v0.256.0
+	google.golang.org/api v0.257.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
