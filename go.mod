@@ -9,7 +9,7 @@ require (
 	github.com/effective-security/x v0.15.83
 	github.com/effective-security/xlog v0.10.49
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/olekukonko/tablewriter v1.1.2
+	github.com/olekukonko/tablewriter v1.1.3
 	github.com/pkg/errors v0.9.1
 	github.com/spaolacci/murmur3 v1.1.0
 	github.com/stretchr/testify v1.11.1
@@ -66,7 +66,7 @@ require (
 	github.com/oleiade/reflections v1.1.0 // indirect
 	github.com/olekukonko/cat v0.0.0-20250911104152-50322a0618f6 // indirect
 	github.com/olekukonko/errors v1.1.0 // indirect
-	github.com/olekukonko/ll v0.1.3 // indirect
+	github.com/olekukonko/ll v0.1.4-0.20260115111900-9e59c2286df0 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/richardlehane/mscfb v1.0.5 // indirect
 	github.com/richardlehane/msoleps v1.0.4 // indirect
