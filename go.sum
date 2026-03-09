@@ -125,8 +125,8 @@ github.com/effective-security/x v0.15.86 h1:sK/6chmHRVhYot4xPtZ6cpF8qHdLuwa2PlWW
 github.com/effective-security/x v0.15.86/go.mod h1:pEaE6ngcJqnfq+jbil+JrD0i+wsMavbc3lYumD/AuKI=
 github.com/effective-security/xdb v0.24.133 h1:V1Dzf/pxfNscLcI4jvTYbszNnHn2SVtXEg9AwEja8ic=
 github.com/effective-security/xdb v0.24.133/go.mod h1:Pb0FU+Ok7G08KIQlD2ZAL9KinMyp5bcIUeduGmd1XMs=
-github.com/effective-security/xlog v0.10.50 h1:1YQrkGqKDSEgeUyGdyaWORKxbh3ORKeCSTWI2qCNfUA=
-github.com/effective-security/xlog v0.10.50/go.mod h1:8gXJBE7QsvntwnT4tP9ENnOAMGoUUYol7d+dqGNRP30=
+github.com/effective-security/xlog v0.10.51 h1:XfYcN6sDZG6BTTPg3oQ6+uk20j49YIAxdE1fnfXiTAs=
+github.com/effective-security/xlog v0.10.51/go.mod h1:k9FJ9nJ9qa4/lsMbuZYwjshbFHGOxrtDxmUqBy2/fu8=
 github.com/effective-security/xpki v0.26.252 h1:eCvJOwzziHNaiIRlwOpugCntCJjD95OkjjctPguaU84=
 github.com/effective-security/xpki v0.26.252/go.mod h1:v43Fh9EpS8UzDKwD03zCyDnNRmu3Z0oSsBZx5AcF8ug=
 github.com/fatih/color v1.18.0 h1:S8gINlzdQ840/4pfAwic/ZE0djQEH3wM94VfqLTZcOM=
