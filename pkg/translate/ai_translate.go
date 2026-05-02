@@ -104,6 +104,10 @@ func (t *Translator) openAITranslateJSON(ctx context.Context, texts map[string]s
 		return errors.Wrap(err, "failed to read OpenAI response")
 	}
 
+	if resp.StatusCode != http.StatusOK {
+		return errors.Errorf("OpenAI API error: %s\n%s", resp.Status, string(data))
+	}
+
 	// Parse response into struct
 	var openAIResp OpenAIResponse
 	err = json.Unmarshal(data, &openAIResp)

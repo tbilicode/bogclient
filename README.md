@@ -31,9 +31,10 @@ Run "bog <command> --help" for more information on a command.
 Example:
 
 ```sh
-bin/bog account statement --from 2026-02-01 --to 2026-02-28 --summary --out /tmp/bog02.json
-bin/bog account translate /tmp/bog02.json /tmp/bog02-ai.eng.json --provider ai
-bin/bog account convert transactions /tmp/bog02-ai.eng.json /tmp/bog02-ai.eng.xlsx --format excel
-bin/bog account convert daily /tmp/bog02.json /tmp/bog02-daily.xlsx --format excel
-bin/bog account convert global /tmp/bog02.json /tmp/bog02-global.xlsx --format excel
+bin/bog account statement --from 2026-04-01 --to 2026-04-30 --summary --out /tmp/bog04.json
+bin/bog account convert daily /tmp/bog04.json /tmp/bog04-daily.xlsx --format excel
+bin/bog account convert global /tmp/bog04.json /tmp/bog04-global.xlsx --format excel
+
+bin/bog account translate /tmp/bog04.json /tmp/bog04-ai.eng.json --provider ai
+bin/bog account convert transactions /tmp/bog04-ai.eng.json /tmp/bog04-ai.eng.xlsx --format excel
 ```
