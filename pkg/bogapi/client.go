@@ -2,6 +2,7 @@ package bogapi
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -16,7 +17,6 @@ import (
 	"github.com/effective-security/xlog"
 	"github.com/pkg/errors"
 	"github.com/tbilicode/bogclient/internal/version"
-	"golang.org/x/net/context"
 )
 
 var logger = xlog.NewPackageLogger("github.com/tbilicode/bogclient/pkg", "bogapi")

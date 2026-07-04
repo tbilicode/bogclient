@@ -79,12 +79,12 @@ func (t *Translator) openAITranslateJSON(ctx context.Context, texts map[string]s
 		" Return only the translated JSON without any extra text.\n```json\n" + toTranslate + "\n```"
 
 	requestBody, _ := json.Marshal(map[string]any{
-		"model": "gpt-4",
+		"model": "gpt-5.6-luna",
 		"messages": []map[string]string{
 			{"role": "system", "content": "You are a professional translator specialized in accounting and finance."},
 			{"role": "user", "content": prompt},
 		},
-		"temperature": 0.2,
+		//"temperature": 0.2,
 	})
 
 	req, _ := http.NewRequest("POST", openAIURL, bytes.NewBuffer(requestBody))

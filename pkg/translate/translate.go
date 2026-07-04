@@ -136,7 +136,7 @@ func (t *Translator) Update(ctx context.Context, doc any) (map[string]string, er
 }
 
 func (t *Translator) extractOrUpdate(v reflect.Value, texts map[string]string, update bool) error {
-	if v.Kind() == reflect.Ptr {
+	if v.Kind() == reflect.Pointer {
 		v = v.Elem()
 	}
 	if !v.IsValid() {
@@ -170,7 +170,7 @@ func (t *Translator) extractOrUpdate(v reflect.Value, texts map[string]string, u
 				}
 			}
 		}
-	case reflect.Ptr:
+	case reflect.Pointer:
 		if err := t.extractOrUpdate(v.Elem(), texts, update); err != nil {
 			return err
 		}

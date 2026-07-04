@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/effective-security/x/maps"
 	"github.com/effective-security/x/slices"
-	"github.com/effective-security/x/values"
 	"github.com/olekukonko/tablewriter"
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v3"
@@ -63,7 +63,7 @@ func Map(w io.Writer, header []string, vals map[string]string) {
 	table := tablewriter.NewTable(w)
 	table.Header(header)
 
-	for _, k := range values.OrderedMapKeys(vals) {
+	for _, k := range maps.OrderedKeys(vals) {
 		_ = table.Append([]string{slices.StringUpto(k, 32), slices.StringUpto(vals[k], 64)})
 	}
 
